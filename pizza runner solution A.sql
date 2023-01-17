@@ -26,12 +26,18 @@ group by customer_id,pizza_id
 order by customer_id asc;
 
 -- 6 What was the maximum number of pizzas delivered in a single order?
+select order_id,count(order_id) as 'No. of pizza' from customer_orders
+group by order_id
+order by count(order_id) desc;
 
 -- 7 For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
 -- 8 How many pizzas were delivered that had both exclusions and extras?
-select count(pizza_id) as 'No. of pizza having Exclusions and extras' from customer_orders
-having not exclusions = 'null' and not extras = 'null';
+select count(order_id) as 'No. of pizza having Exclusions and extras' from customer_orders
+where exclusions not in ('null') and extras not in ('null');
+
 -- 9 What was the total volume of pizzas ordered for each hour of the day?
 
 -- 10 What was the volume of orders for each day of the week?
+select count(order_id), order_time from customer_orders
+group by order_time
